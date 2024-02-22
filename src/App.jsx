@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, Input, Button, Typography, IconButton } from "@mui/joy";
+import { Input, Button, Typography, IconButton } from "@mui/joy";
 import { Edit, Delete, Save } from "@mui/icons-material";
 import "./index.css";
 
@@ -13,7 +13,7 @@ function TodoList() {
     e.preventDefault();
     const newItem = { id: Date.now(), text: newTodoText };
 
-    if (!newTodoText) return; // Check if newTodoText is falsy
+    if (!newTodoText) return;
 
     setTodos(function (todos) {
       return [...todos, newItem];
@@ -51,14 +51,11 @@ function TodoList() {
 
   return (
     <div className="container">
-      <div className="black-box">
+      <div className="box">
         <div className="todo-container">
-          <Typography
-            level="h2"
-            style={{ margin: "16px auto", textAlign: "center" }}
-          >
-            To Do
-          </Typography>
+          <div className="to-do-heading">
+            <Typography level="h2">To Do</Typography>
+          </div>
           {todos.map(function (todo) {
             return (
               <div className="todo-item" key={todo.id}>
@@ -108,28 +105,27 @@ function TodoList() {
             );
           })}
         </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            marginTop: "16px",
-          }}
-        >
+        <div className="add-todo">
           <Input
+            className="add-description-input"
             placeholder="Add a description"
             value={newTodoText}
             onChange={function (e) {
               setNewTodoText(e.target.value);
             }}
           />
-          <Button
-            onClick={handleAddTodo}
-            style={{ backgroundColor: "#ccc", color: "black" }}
-          >
+          <Button onClick={handleAddTodo} className="add-button">
             Add
           </Button>
         </div>
       </div>
+      <Typography className="date">
+        {new Date().toLocaleDateString("en-US", {
+          month: "short",
+          day: "2-digit",
+          year: "numeric",
+        })}
+      </Typography>
     </div>
   );
 }
